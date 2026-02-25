@@ -26,7 +26,7 @@ class ConseilPage extends StatelessWidget {
             SizedBox(height: 30),
             Row(
               children: [
-                GerenerButton(onPressed: (){},),
+                Expanded(child: GerenerButton(onPressed: (){},)),
                 SizedBox(width: 30),
                 copyButton(onPressed:(){}),
               ],
