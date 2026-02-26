@@ -1,37 +1,68 @@
+import 'package:advicely/data/model.dart';
 import 'package:advicely/widgets/copie_button.dart';
 import 'package:advicely/widgets/generer_generate.dart';
 import 'package:advicely/widgets/panneau_central.dart';
+import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:advicely/data/datasource.dart' as datasource;
 
-class ConseilPage extends StatelessWidget {
+class ConseilPage extends StatefulWidget {
+  @override
+  State<ConseilPage> createState() => _ConseilPageState();
+}
+
+class _ConseilPageState extends State<ConseilPage> {
+  
+
   @override
   Widget build(BuildContext context) {
+    final panneauCentral = PanneauCentral(future:datasource.genererConseil());
     return Scaffold(
+      appBar: AppBar(backgroundColor: Color(0xFF5A7D75),
+      title: Text("advicly", style: GoogleFonts.inter(color: Colors.white)), centerTitle: true),
       body: Container(
+        constraints: BoxConstraints.expand(),
         padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              "Conseil de vie",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.enriqueta(
-                color: Color(0XFF2E5540),
-                fontSize: 32,
+        color: Color(0xFFEDFFE4),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                "Conseil de vie",
+                textAlign: TextAlign.center,
+                style: GoogleFonts.enriqueta(
+                  color: Color(0XFF2E5540),
+                  fontSize: 32,
+                ),
               ),
-            ),
-            SizedBox(height: 30),
-            PanneauCentral(texte: "conseil"),
-            SizedBox(height: 30),
-            Row(
-              children: [
-                Expanded(child: GerenerButton(onPressed: (){},)),
-                SizedBox(width: 30),
-                copyButton(onPressed:(){}),
-              ],
-            ),
-          ],
+              SizedBox(height: 30),
+              Center(child: SvgPicture.asset("assets/image/advicly.svg", 
+              height: 86,
+              width: 90,
+              colorFilter: ColorFilter.mode(Color(0xFF2E554C), BlendMode.srcIn),)),
+              SizedBox(height: 30),
+              panneauCentral,
+              SizedBox(height: 30),
+              Row(
+                children: [
+                  Expanded(child: GerenerButton(onPressed: (){
+                    setState(() {
+                      });// actualise la page
+                  },)),
+                  SizedBox(width: 30),
+                  copyButton(onPressed:()async{
+                    try{
+                      await FlutterClipboard.copy(panneauCentral.texte);
+
+                    }on ClipboardException catch(e){}
+                  }),
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

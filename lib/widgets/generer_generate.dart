@@ -13,7 +13,7 @@ class GerenerButton extends StatelessWidget {
       height: 80,
       child: Text(
         "generer",
-        style: GoogleFonts.inter(color: Colors.blueAccent),
+        style: GoogleFonts.inter(color: const Color.fromARGB(255, 254, 254, 254),fontSize: 24),
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
