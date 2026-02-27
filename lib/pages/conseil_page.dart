@@ -44,7 +44,7 @@ class _ConseilPageState extends State<ConseilPage> {
               width: 90,
               colorFilter: ColorFilter.mode(Color(0xFF2E554C), BlendMode.srcIn),)),
               SizedBox(height: 30),
-              panneauCentral,
+              SingleChildScrollView(child: panneauCentral),
               SizedBox(height: 30),
               Row(
                 children: [
